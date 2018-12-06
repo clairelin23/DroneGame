@@ -12,7 +12,7 @@ public class Clock {
 	int timeInMilliSecs;
 	Timer timer;
 	Score score;
-	
+
 	boolean collisionDetected;
 
 	public Clock() {
@@ -26,7 +26,7 @@ public class Clock {
 
 		scorelabel = new JLabel("Score is " + score.score);
 		timelabel = new JLabel(minutes + ":" + seconds);
-		collisionlabel = new JLabel("Collision count: "+ score.collisionCount);
+		collisionlabel = new JLabel("Collision count: " + score.collisionCount);
 		// The timer task is a task that is meant to be run every 100
 		// miliseconds
 		timertask = new TimerTask() {
@@ -35,17 +35,19 @@ public class Clock {
 			public void run() {
 				timeInMilliSecs++;
 				timelabel.repaint();
-				//scorelabel.repaint();
 				collisionlabel.repaint();
 				minutes = timeInMilliSecs / 60;
 				seconds = (int) timeInMilliSecs % 60;
-		
+
+				// If collision count is greater than 2, reset timer
+				// Score stays the same
 				if (score.getColCount() >= 2) {
 					resetTimer();
 					score.resetColCount();
 					timelabel.repaint();
 				}
-
+				// If the user reaches 90 seconds, reset all counts except for score
+				// Score is increased
 				if (timeInMilliSecs == 90) {
 					resetTimer();
 					score.incScore();
@@ -53,16 +55,15 @@ public class Clock {
 					scorelabel.repaint();
 					System.out.print("try");
 				}
-
+				// Resets the text labels
 				timelabel.setText(minutes + ":" + seconds);
 				scorelabel.setText("Score is: " + score.score);
-				collisionlabel.setText("Collision count: "+ score.collisionCount);
+				collisionlabel.setText("Collision count: " + score.collisionCount);
 			}
 		};
 
-		
 	}
-	
+
 	public void runclock() {
 		timer.scheduleAtFixedRate(timertask, 1000, 1000);
 	}

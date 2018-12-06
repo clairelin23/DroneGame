@@ -14,10 +14,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class GameFrame extends JFrame implements KeyListener {
 
-	Drone drone = new Drone();
+	Drone drone;
 	Clock clock;
 	JLayeredPane lpane;
 	JPanel scoreboard;
@@ -33,14 +32,19 @@ public class GameFrame extends JFrame implements KeyListener {
 	boolean run;
 
 	public GameFrame() throws IOException {
+
+		// Add key listener
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
+
+		// declare the booleans false
 		freeze = false;
 		run = false;
+
+		// the layered pane is to allow multiple panels to overlap
 		lpane = new JLayeredPane();
 		clock = new Clock();
-		scoreboard = new JPanel();
 
 		// create background
 		plainPanel = new PlainLayerPanel();
@@ -53,6 +57,8 @@ public class GameFrame extends JFrame implements KeyListener {
 		planesPanel.setBounds(0, 0, 537, 340);
 		planesPanel.setOpaque(false);
 
+		// create drone and add to panel
+		drone = new Drone();
 		droneLabel = new JLabel(new ShapeIcon(drone));
 		planesPanel.add(droneLabel);
 
@@ -70,13 +76,17 @@ public class GameFrame extends JFrame implements KeyListener {
 		startgame.setVisible(true);
 		penalty.setVisible(false);
 
+		// create a scoreboard panel to display score and stopwatch
+		scoreboard = new JPanel();
 		scoreboard.setLayout(new FlowLayout());
 		scoreboard.add(clock.timelabel);
 		scoreboard.add(clock.scorelabel);
 		planesPanel.add(scoreboard, BorderLayout.NORTH);
 		scoreboard.setOpaque(false);
+		// add collisions count to bottom of screen
 		planesPanel.add(clock.collisionlabel, BorderLayout.SOUTH);
 
+		// add multiple panels to layered pane
 		lpane.setBounds(0, 0, 537, 350);
 		lpane.add(plainPanel, 0, 0);
 		lpane.add(planesPanel, 0, 0);
@@ -92,20 +102,30 @@ public class GameFrame extends JFrame implements KeyListener {
 		setVisible(true);
 	}
 
+	/**
+	 * Sets the freeze boolean to true and displays penalty message
+	 */
 	public void freeze() {
 		freeze = true;
 		penalty.setVisible(true);
 
 	}
 
+	/**
+	 * Defreezes resets freeze to false and removes penalty message 
+	 */
 	public void defreeze() {
 		freeze = false;
 		penalty.setVisible(false);
 	}
 
+	/**
+	 * Runs the game when spacebar is pressed by starting the clock and checking for
+	 * collisions
+	 */
 	public void rungame() {
-		if (run) {
-			clock.runclock();
+		if (run) {	//Checks if run is true
+			clock.runclock(); 
 			Timer t2 = new javax.swing.Timer(1000, event -> {
 				int freezeTime = clock.seconds;
 				int counter = 0;
@@ -119,20 +139,17 @@ public class GameFrame extends JFrame implements KeyListener {
 					}
 				}
 				if (clock.score.getColCount() >= 2) {
-					freezeTime = counter;
+					freezeTime = counter;  //sets freezetime to counter
 					freeze();
 				}
 
-				if (freezeTime - counter == 5) {
+				if (freezeTime - counter == 5) { //Waits for freeze time counter to become 5
 
 					defreeze();
 				}
-
-				System.out.println(counter - freezeTime);
-				System.out.println(freeze);
 			});
 
-			t2.start();
+			t2.start();  //starts the timer 
 		}
 	}
 
