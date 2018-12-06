@@ -1,4 +1,3 @@
-
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
@@ -35,14 +34,14 @@ public class Clock {
 			@Override
 			public void run() {
 				timeInMilliSecs++;
-				System.out.println("seconds" + timeInMilliSecs);
 				timelabel.repaint();
+				//scorelabel.repaint();
+				collisionlabel.repaint();
 				minutes = timeInMilliSecs / 600;
 				seconds = (int) timeInMilliSecs % 600;
 		
 				if (score.getColCount() >= 2) {
 					resetTimer();
-					System.out.println("collisionDetected" + score.collisionCount);
 					score.resetColCount();
 					timelabel.repaint();
 				}
@@ -52,6 +51,7 @@ public class Clock {
 					score.incScore();
 					score.resetColCount();
 					scorelabel.repaint();
+					System.out.print("try");
 				}
 
 				timelabel.setText(minutes + ":" + seconds);

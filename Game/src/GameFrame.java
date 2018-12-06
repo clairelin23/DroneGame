@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -21,12 +20,14 @@ public class GameFrame extends JFrame implements KeyListener {
 	Clock clock;
 	JLayeredPane lpane;
 	JPanel scoreboard;
+	JPanel messages;
 	PlanesLayerPanel planesPanel;
 	PlainLayerPanel plainPanel;
 	MoveableShape plain;
 	JLabel backgroundlabel;
 	JLabel droneLabel;
-	JLabel frozen;
+	JLabel penalty;
+	JLabel startgame;
 	boolean freeze;
 
 	public GameFrame() throws IOException {
@@ -53,12 +54,10 @@ public class GameFrame extends JFrame implements KeyListener {
 
 	public void freeze() {
 		freeze = true;
-		frozen.setVisible(true);
 	}
 
 	public void defreeze() {
 		freeze = false;
-		frozen.setVisible(false);
 	}
 
 	@Override

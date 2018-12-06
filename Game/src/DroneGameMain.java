@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -30,7 +29,10 @@ public class DroneGameMain {
 
 		// create background
 		gf.plainPanel = new PlainLayerPanel();
+		gf.plainPanel.setBounds(0, 0, 537, 340);
+		gf.plainPanel.setOpaque(false);
 
+		//create the panel with planes and drones
 		gf.planesPanel = new PlanesLayerPanel();
 		gf.planesPanel.setLayout(new BorderLayout());
 		gf.planesPanel.setBounds(0, 0, 537, 340);
@@ -38,9 +40,18 @@ public class DroneGameMain {
 
 		droneLabel = new JLabel(new ShapeIcon(gf.drone));
 		gf.planesPanel.add(droneLabel);
-		gf.plainPanel.setBounds(0, 0, 537, 340);
-		gf.plainPanel.setOpaque(false);
-
+		
+		//create a messages panel to display messages
+		gf.messages = new JPanel();
+		gf.messages.setOpaque(false);
+		gf.messages.setBounds(170, 120, 200, 100);
+		gf.penalty  = new JLabel("PENALTY");
+		gf.startgame = new JLabel("PRESS SPACE");
+		gf.messages.add(gf.penalty);
+		gf.messages.add(gf.startgame);
+		gf.startgame.setVisible(false);
+		gf.penalty.setVisible(false);
+		
 		gf.scoreboard.setLayout(new FlowLayout());
 		gf.scoreboard.add(gf.clock.timelabel);
 		gf.scoreboard.add(gf.clock.scorelabel);
@@ -48,20 +59,10 @@ public class DroneGameMain {
 		gf.scoreboard.setOpaque(false);
 		gf.planesPanel.add(gf.clock.collisionlabel, BorderLayout.SOUTH);
 
-		
-		
-		JPanel pausepanel = new JPanel();
-		File file = new File(gf.getClass().getResource("/Images/pause.png").getFile());
-		ImageIcon imgThisImg = new ImageIcon(file.getPath());
-		gf.frozen = new JLabel(imgThisImg);
-		gf.frozen.setOpaque(false);
-		gf.frozen.setVisible(false);
-		pausepanel.add(gf.frozen);
-		
 		gf.lpane.setBounds(0, 0, 600, 400);
 		gf.lpane.add(gf.plainPanel, 0, 0);
 		gf.lpane.add(gf.planesPanel, 0, 0);
-		gf.lpane.add(pausepanel,0,0);
+		gf.lpane.add(gf.messages,0,0);
 
 		gf.setPreferredSize(new Dimension(537, 370));
 		gf.setLayout(new BorderLayout());
