@@ -60,6 +60,10 @@ public class Clock {
 			}
 		};
 
+		
+	}
+	
+	public void runclock() {
 		timer.scheduleAtFixedRate(timertask, 100, 1000);
 	}
 
