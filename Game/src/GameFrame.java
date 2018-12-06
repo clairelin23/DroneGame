@@ -1,22 +1,19 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import javafx.scene.paint.Color;
 
 public class GameFrame extends JFrame implements KeyListener {
 
@@ -62,12 +59,15 @@ public class GameFrame extends JFrame implements KeyListener {
 		// create a messages panel to display messages
 		messages = new JPanel();
 		messages.setOpaque(false);
-		messages.setBounds(170, 120, 200, 100);
-		penalty = new JLabel("PENALTY");
-		startgame = new JLabel("PRESS SPACE");
+		penalty = new JLabel("PENALTY ");
+		startgame = new JLabel("PRESS SPACEBAR TO BEGIN");
+		messages.setBounds(150, 190, 240, 140);
+		penalty.setFont(new Font("SansSerif", Font.ITALIC, 24));
+		penalty.setForeground(Color.WHITE);
+		startgame.setForeground(Color.WHITE);
 		messages.add(penalty);
 		messages.add(startgame);
-		startgame.setVisible(false);
+		startgame.setVisible(true);
 		penalty.setVisible(false);
 
 		scoreboard.setLayout(new FlowLayout());
@@ -77,12 +77,14 @@ public class GameFrame extends JFrame implements KeyListener {
 		scoreboard.setOpaque(false);
 		planesPanel.add(clock.collisionlabel, BorderLayout.SOUTH);
 
-		lpane.setBounds(0, 0, 600, 400);
+		lpane.setBounds(0, 0, 537, 350);
 		lpane.add(plainPanel, 0, 0);
 		lpane.add(planesPanel, 0, 0);
 		lpane.add(messages, 0, 0);
 
-		setPreferredSize(new Dimension(537, 370));
+		setTitle("Drone Game");
+		setPreferredSize(new Dimension(537, 362));
+		setResizable(false);
 		setLayout(new BorderLayout());
 		add(lpane);
 		setLocationRelativeTo(null);
@@ -92,10 +94,13 @@ public class GameFrame extends JFrame implements KeyListener {
 
 	public void freeze() {
 		freeze = true;
+		penalty.setVisible(true);
+
 	}
 
 	public void defreeze() {
 		freeze = false;
+		penalty.setVisible(false);
 	}
 
 	public void rungame() {
@@ -146,6 +151,7 @@ public class GameFrame extends JFrame implements KeyListener {
 		}
 		if (key.getKeyCode() == KeyEvent.VK_SPACE) {
 			run = true;
+			startgame.setVisible(false);
 			rungame();
 		}
 	}
@@ -161,9 +167,8 @@ public class GameFrame extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public static void main(String[] args) throws IOException {
 
-		GameFrame gf = new GameFrame();
+	public static void main(String[] args) throws IOException {
+		new GameFrame();
 	}
 }

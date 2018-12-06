@@ -37,8 +37,8 @@ public class Clock {
 				timelabel.repaint();
 				//scorelabel.repaint();
 				collisionlabel.repaint();
-				minutes = timeInMilliSecs / 600;
-				seconds = (int) timeInMilliSecs % 600;
+				minutes = timeInMilliSecs / 60;
+				seconds = (int) timeInMilliSecs % 60;
 		
 				if (score.getColCount() >= 2) {
 					resetTimer();
@@ -46,7 +46,7 @@ public class Clock {
 					timelabel.repaint();
 				}
 
-				if (timeInMilliSecs == 900) {
+				if (timeInMilliSecs == 90) {
 					resetTimer();
 					score.incScore();
 					score.resetColCount();
@@ -64,7 +64,7 @@ public class Clock {
 	}
 	
 	public void runclock() {
-		timer.scheduleAtFixedRate(timertask, 100, 1000);
+		timer.scheduleAtFixedRate(timertask, 1000, 1000);
 	}
 
 	public void resetTimer() {
