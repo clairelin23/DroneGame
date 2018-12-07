@@ -14,19 +14,19 @@ import javax.swing.Timer;
 	{
 	    private static final int D_W = 600;
 	    private static final int D_H = 400;
-
+	    public final int planecount = 7;
 	    ArrayList<Plane> planes;
 	    public PlanesLayerPanel() 
 	    {
 	    		planes = new ArrayList<>();
 	    		Random rand1 = new Random();
 	    		Random rand2 = new Random();
-	    	for (int i=0;i<10;i++)
+	    	for (int i=0;i<planecount;i++)
 	    	{  
 	        planes.add(new Plane(rand2.nextInt(500)+500,rand2.nextInt(340), 20));     
 	    	}
 	    	
-	        Timer t = new javax.swing.Timer(150, event -> 
+	        Timer t = new javax.swing.Timer(30, event -> 
 			{
 	                for (Plane x : planes) 
 	                {

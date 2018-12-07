@@ -23,7 +23,7 @@ public class PlainLayerPanel extends JPanel
     {
     		plain = new Background();
     	
-    		final int DELAY = 100;
+    		final int DELAY = 10;
     		// Milliseconds between timer ticks
     		// Milliseconds between timer ticks
     		Timer t1 = new javax.swing.Timer(DELAY, event -> {
